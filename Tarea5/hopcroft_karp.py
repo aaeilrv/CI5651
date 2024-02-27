@@ -11,22 +11,6 @@ def is_prime(n):
             return False
     return True
 
-'''
-def amount_odd(C):
-    n = 0
-    for i in C:
-        if (i % 2 != 0):
-            n += 1
-    return n
-
-def amount_even(C):
-    m = 0
-    for i in C:
-        if (i % 2 == 0):
-            m += 1
-    return m
-''' 
-
 class bipartite_graph(object):
     def __init__(self, C, m, n):
         self.C = C
@@ -98,6 +82,11 @@ class bipartite_graph(object):
  
  
 C = [1, 2, 3, 4, 5, 11]
-g = bipartite_graph(C, len(C), len(C))
+
+max_par = max([i for i in C if i % 2 == 0])
+max_impar = max([i for i in C if i % 2 != 0])
+
+g = bipartite_graph(C, max_impar, max_par)
 g.add_edges()
+
 print("El número mínimo de vértices para eliminar es %d" % g.hopcroft_karp())
