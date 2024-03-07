@@ -85,14 +85,18 @@ void multiswap(Node *&root, int a, int b) {
 
 int Main() {
     int N, Q, a, b;
+
     cin >> N >> Q;
+
+    cin >> a >> b;
 
     while (N--) {
         merge(root, root, new Node(a));
     }
 
     while (Q--) {
-        cin >> a >> b;
+        a = a + 1;
+        b = b + 1;
         multiswap(root, a, b);
     }
 
