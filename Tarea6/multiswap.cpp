@@ -57,48 +57,50 @@ ostream &operator<<(ostream &os, Node *n) {
 	return os;
 }
 
-void multiswap(Node *&root, int a, int b) {
+void multiswap(Node *&root_node, int a, int b) {
     Node *node_a, *node_b, *node_c, *node_d, *node_e, *node_f;
     int segment_a = b - a;
-    int segment_b = root->size - b;
+    int segment_b = root_node->size - b;
 
     int minimum = min(segment_a, segment_b);
 
     if (a + minimum == b) {
-        split(root, node_a, node_b, b);
+        split(root_node, node_a, node_b, b); 
         split(node_a, node_c, node_d, a);
         split(node_b, node_e, node_f, minimum);
 
-        merge(root, node_c, node_e);
+        merge(root_node, node_c, node_e);
         merge(node_d, node_d, node_f);
-        merge(root, root, node_d);
-    } else if (b + minimum == root-> size) {
-        split(root, node_a, node_b, b);
+        merge(root_node, root_node, node_d);
+
+    } else if (b + minimum == root_node->size) {
+        split(root_node, node_a, node_b, b);
         split(node_a, node_c, node_d, a);
         split(node_d, node_e, node_f, minimum);
 
         merge(node_c, node_c, node_b);
         merge(node_c, node_c, node_f);
-        merge(root, node_c, node_e);
+        merge(root_node, node_c, node_e);
     }
 }
 
-int Main() {
-    int N, Q, a, b;
+int main() {
+	int N, a, b;
 
-    cin >> N >> Q;
+    cout << "Ingrese el tamaño del arreglo: ";
+    cin >> N;
 
+    cout << "Ingrese los valores de a y b: ";
     cin >> a >> b;
 
-    while (N--) {
-        merge(root, root, new Node(a));
+    for (int i = 0; i < N; i++) {
+        merge(root, root, new Node(i));
     }
-
-    while (Q--) {
+    
+    for (int i = 0; i < N; i++) {
         a = a + 1;
         b = b + 1;
         multiswap(root, a, b);
     }
-
     cout << root << '\n';
 }
