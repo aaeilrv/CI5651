@@ -64,13 +64,24 @@ void multiswap(Node *&root, int a, int b) {
 
     int minimum = min(segment_a, segment_b);
 
-    split(root, node_a, node_b, b); 
-    split(node_a, node_c, node_d, a);
-    split(node_b, node_e, node_f, minimum);
+    if (a + minimum == b) {
+		split(root, node_a, node_b, b);
+        split(node_a, node_c, node_d, a);
+        split(node_b, node_e, node_f, minimum);
 
-    merge(root, node_c, node_e);
-    merge(node_d, node_d, node_f);
-    merge(root, root, node_d);
+        merge(root, node_c, node_e);
+        merge(node_d, node_d, node_f);
+        merge(root, root, node_d);
+
+    } else if (b + minimum == root->size) {
+        split(root, node_a, node_b, b);
+        split(node_a, node_c, node_d, a);
+        split(node_d, node_e, node_f, minimum);
+
+        merge(node_c, node_c, node_b);
+        merge(node_c, node_c, node_f);
+        merge(root, node_c, node_e);
+    }
 }
 
 int main() {
