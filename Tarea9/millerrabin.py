@@ -1,6 +1,6 @@
 from random import randint
 
-def miller_rabin(a, n):
+def BTest(a, n):
     k = 0
     m = 0
     while True:
@@ -12,18 +12,29 @@ def miller_rabin(a, n):
     k -= 1
     
     b = pow(a, m, n)
+    print(f'\nb_0: {b}')
     
     if b == 1 or b == n - 1:
-        return 'Es primo.'
+        return True
     
     for _ in range(k):
-        b_1 = pow(b, 2, n)
-        if b_1 == n - 1:
-            return 'Es primo.'
-    return 'No es primo.'
+        b = pow(b, 2, n)
+        print(f'b_{_ + 1}: {b}')
+        if b == n - 1:
+            return True
+    return False
 
-def get_rand(n):
-    return miller_rabin(randint(2, n - 1), n)
+def millRap(n):
+    a = randint(2, n - 1)
+    print(f'\na: {a}')
+    return BTest(a, n)
+
+def millRabRep(n, k):
+    for _ in range(k):
+        print(f'\nIteración: {_}')
+        if not millRap(n):
+            return '\nNo es primo.'
+    return '\nEs primo.'
 
 n = 161123316112331611233
-print(get_rand(n))
+print(millRabRep(n, 10))
